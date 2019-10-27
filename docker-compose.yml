@@ -1,0 +1,31 @@
+version: '3'
+services:
+  php-cli:
+    build: ./docker
+    command: php -v
+    volumes:
+      - .:/app
+      - ./docker/php.ini:/usr/local/etc/php/php.ini
+  php-shop:
+    build: ./docker
+    volumes:
+      - .:/app
+      - ./docker/php.ini:/usr/local/etc/php/php.ini
+    ports:
+      - "8888:80"
+  mysql:
+      image: mysql:5.7
+      container_name: mysql_pronami_shop
+      environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_DATABASE: pronami_shop
+        MYSQL_USER: docker
+        MYSQL_PASSWORD: docker
+        TZ: 'Asia/Tokyo'
+      command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+      volumes:
+      - ./db/data:/var/lib/mysql
+      - ./db/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./db/sql:/docker-entrypoint-initdb.d
+      ports:
+        - "33056:3306"
