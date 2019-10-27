@@ -16,3 +16,10 @@ $ docker-compose run --rm php-cli composer show
 Manged by phinx
 
 - http://docs.phinx.org/en/latest/index.html
+
+```bash
+# Migrate
+$ vendor/bin/phinx migrate
+# Rollback
+$ vendor/bin/phinx rollback
+```
