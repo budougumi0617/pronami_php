@@ -21,13 +21,13 @@ try {
     $dbh = null; // GCを促してDBへのコネクションを切断している。
 
     echo 'スタッフ一覧<br/><br/>';
-    echo '<form method="post" action="staff_editt.php">';
+    echo '<form method="post" action="staff_edit.php">';
     while (true) {
         $rec = $stmt->fetch(PDO::FETCH_ASSOC);
         if (!$rec) {
             break;
         }
-        echo '<input type="radio" name="id" value=' . $rec['id'] . '">';
+        echo '<input type="radio" name="id" value=' . $rec['id'] . '>';
         echo $rec['name'] . '<br/>';
     }
     echo '<input type="submit" value="修正">';
