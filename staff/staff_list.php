@@ -8,7 +8,7 @@
 <?php
 require_once $_ENV['APACHE_DOCUMENT_ROOT'] . '/common.php';
 
-$sql = 'SELECT name FROM mst_staff WHERE 1';
+$sql = 'SELECT id, name FROM mst_staff WHERE 1';
 
 try {
     $dbh = getDBHandler();
@@ -21,14 +21,17 @@ try {
     $dbh = null; // GCを促してDBへのコネクションを切断している。
 
     echo 'スタッフ一覧<br/><br/>';
-
-    while(true){
+    echo '<form method="post" action="staff_editt.php">';
+    while (true) {
         $rec = $stmt->fetch(PDO::FETCH_ASSOC);
-        if (!$rec){
+        if (!$rec) {
             break;
         }
-        echo $rec['name'].'<br/>';
+        echo '<input type="radio" name="id" value=' . $rec['id'] . '">';
+        echo $rec['name'] . '<br/>';
     }
+    echo '<input type="submit" value="修正">';
+    echo '</form>';
 } catch (Exception $e) {
     echo 'ただいま障害により大変ご迷惑をおかけしております。';
     exit();
