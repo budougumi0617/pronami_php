@@ -37,10 +37,6 @@ $staff_pass2 = h($_POST['pass2']);
 </head>
 <body>
 <? if (validate($staff_name, $staff_pass, $staff_pass2)): ?>
-    <form>
-        <input type="button" onclick="history.back()" value="戻る">
-    </form>
-<? else: ?>
     <? $staff_pass = md5($staff_pass) ?>
     <form action="staff_add_done.php" method="post">
         <? // HTMLタグ内で変数を展開する ?>
@@ -49,6 +45,11 @@ $staff_pass2 = h($_POST['pass2']);
         <br/>
         <input type="button" onclick="history.back()" value="戻る">
         <input type="submit" value="OK">
+    </form>
+
+<? else: ?>
+    <form>
+        <input type="button" onclick="history.back()" value="戻る">
     </form>
 <? endif; ?>
 </body>
