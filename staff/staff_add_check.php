@@ -1,30 +1,28 @@
 <?php
 declare(strict_types=1);
 
+require_once $_ENV['APACHE_DOCUMENT_ROOT'] . '/common.php';
+
 function validate(string $name, string $pass, string $pass2): bool
 {
-    $invalid = false;
+    $valid = true;
 
     if ($name === '') {
-        $invalid = true;
+        $valid = false;
         echo 'スタッフ名が入力されていません。<br/>';
     } else {
         echo "スタッフ名:${name}<br/>";
     }
     if ($pass == '') {
-        $invalid = true;
+        $valid = false;
         echo 'パスワードが入力されていません。<br/>';
     }
     if ($pass != $pass2) {
-        $invalid = true;
+        $valid = false;
         echo 'パスワードが一致しません。<br/>';
     }
 
-    return $invalid;
-}
-
-function h(string $v):string{
-    return htmlspecialchars($v, ENT_QUOTES, 'UTF-8');
+    return $valid;
 }
 
 $staff_name = h($_POST['name']);
