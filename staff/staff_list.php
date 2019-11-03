@@ -21,7 +21,7 @@ try {
     $dbh = null; // GCを促してDBへのコネクションを切断している。
 
     echo 'スタッフ一覧<br/><br/>';
-    echo '<form method="post" action="staff_edit.php">';
+    echo '<form method="post" action="staff_branch.php">';
     while (true) {
         $rec = $stmt->fetch(PDO::FETCH_ASSOC);
         if (!$rec) {
@@ -30,7 +30,9 @@ try {
         echo '<input type="radio" name="id" value=' . $rec['id'] . '>';
         echo $rec['name'] . '<br/>';
     }
-    echo '<input type="submit" value="修正">';
+    // POSTリクエストにedit keyで修正がvalueとして飛ぶ
+    echo '<input type="submit" name="edit" value="修正">';
+    echo '<input type="submit" name="delete" value="削除">';
     echo '</form>';
 } catch (Exception $e) {
     echo 'ただいま障害により大変ご迷惑をおかけしております。';

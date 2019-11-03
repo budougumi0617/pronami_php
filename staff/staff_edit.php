@@ -1,7 +1,7 @@
 <?php
 require_once $_ENV['APACHE_DOCUMENT_ROOT'] . '/common.php';
 
-$id = $_POST['id'];
+$id = $_GET['id'];
 
 $sql = 'SELECT name, name FROM mst_staff WHERE id=?';
 
