@@ -10,6 +10,7 @@ require_once $_ENV['APACHE_DOCUMENT_ROOT'] . '/common.php';
 
 $pro_name = h($_POST['name']);
 $pro_price = h($_POST['price']);
+$pro_file = h($_POST['gazou_name']);
 
 $sql = 'INSERT INTO mst_product(name, price, gazou) VALUES (?, ?, ?)';
 
@@ -19,7 +20,7 @@ try {
     $stmt = $dbh->prepare($sql);
     $data[] = $pro_name;
     $data[] = $pro_price;
-    $data[] = '';
+    $data[] = $pro_file;
     $stmt->execute($data);
 
     $dbh = null; // GCを促してDBへのコネクションを切断している。
