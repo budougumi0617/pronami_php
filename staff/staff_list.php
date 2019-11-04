@@ -14,9 +14,7 @@ try {
     $dbh = getDBHandler();
 
     $stmt = $dbh->prepare($sql);
-    $data[] = $staff_name;
-    $data[] = $staff_pass;
-    $stmt->execute($data);
+    $stmt->execute();
 
     $dbh = null; // GCを促してDBへのコネクションを切断している。
 

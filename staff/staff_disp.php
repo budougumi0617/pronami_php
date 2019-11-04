@@ -3,7 +3,7 @@ require_once $_ENV['APACHE_DOCUMENT_ROOT'] . '/common.php';
 
 $id = $_GET['id'];
 
-$sql = 'SELECT name, name FROM mst_staff WHERE id=?';
+$sql = 'SELECT name FROM mst_staff WHERE id=?';
 
 try {
     $dbh = getDBHandler();
