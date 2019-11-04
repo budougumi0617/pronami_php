@@ -3,7 +3,7 @@ require_once $_ENV['APACHE_DOCUMENT_ROOT'] . '/common.php';
 
 $id = $_GET['id'];
 
-$sql = 'SELECT name FROM mst_staff WHERE id=?';
+$sql = 'SELECT name, price, gazou FROM mst_product WHERE id=?';
 
 try {
     $dbh = getDBHandler();
@@ -13,7 +13,9 @@ try {
     $stmt->execute($data);
 
     $rec = $stmt->fetch(PDO::FETCH_ASSOC);
-    $staff_name = $rec['name'];
+    $pro_name = $rec['name'];
+    $pro_price = $rec['price'];
+    $pro_file = $rec['gazou'];
 
     $dbh = null; // GCを促してDBへのコネクションを切断している。
 } catch (Exception $e) {
@@ -28,12 +30,17 @@ try {
     <title>ろくまる農園</title>
 </head>
 <body>
-スタッフ情報参照<br/>
+商品情報参照<br/>
 <br/>
-スタッフコード<br/>
+商品コード<br/>
 <? echo $id ?><br/>
-スタッフ名<br/>
-<? echo $staff_name ?><br/>
+商品名<br/>
+<? echo $pro_name ?><br/>
+価格<br/>
+<? echo $pro_price ?>円<br/>
+<? if ($pro_file != '') : ?>
+    <img src="../gazou/<? echo $pro_file ?>"><br/>
+<? endif; ?>
 <input type="button" onclick="history.back()" value="戻る">
 </body>
 </html>
