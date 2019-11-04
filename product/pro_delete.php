@@ -3,7 +3,7 @@ require_once $_ENV['APACHE_DOCUMENT_ROOT'] . '/common.php';
 
 $id = $_GET['id'];
 
-$sql = 'SELECT name FROM mst_product WHERE id=?';
+$sql = 'SELECT name, gazou FROM mst_product WHERE id=?';
 
 try {
     $dbh = getDBHandler();
@@ -14,8 +14,10 @@ try {
 
     $rec = $stmt->fetch(PDO::FETCH_ASSOC);
     $pro_name = $rec['name'];
+    $pro_file = $rec['gazou'];
 
     $dbh = null; // GCを促してDBへのコネクションを切断している。
+
 } catch (Exception $e) {
     echo 'ただいま障害により大変ご迷惑をおかけしております。';
     exit();
@@ -41,6 +43,10 @@ try {
 <br/>
 <form action="pro_delete_done.php" method="post">
     <input type="hidden" name="id" value="<? echo $id ?>">
+    <input type="hidden" name="gazou_name" value="<? echo $pro_file ?>">
+    <? if ($pro_file != '') : ?>
+        <img src="../gazou/<? echo $pro_file ?>"><br/>
+    <? endif; ?>
     <input type="button" onclick="history.back()" value="戻る">
     <input type="submit" value="OK">
 </form>

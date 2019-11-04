@@ -10,6 +10,7 @@
 require_once $_ENV['APACHE_DOCUMENT_ROOT'] . '/common.php';
 
 $pro_id = h($_POST['id']);
+$pro_file = h($_POST['gazou_name']);
 
 $sql = 'DELETE from mst_product WHERE id=?';
 
@@ -21,6 +22,10 @@ try {
     $stmt->execute($data);
 
     $dbh = null; // GCを促してDBへのコネクションを切断している。
+
+    if ($pro_file != '') {
+        unlink('../gazou/' . $pro_file);
+    }
 } catch (Exception $e) {
     echo 'ただいま障害により大変ご迷惑をおかけしております。';
     exit();
