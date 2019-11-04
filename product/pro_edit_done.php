@@ -28,7 +28,7 @@ try {
 
     $dbh = null; // GCを促してDBへのコネクションを切断している。
 
-    if ($pro_gazou_old != '') {
+    if ($pro_gazou_old != '' && $pro_gazou_old != $pro_gazou) {
         unlink('../gazou/' . $pro_gazou_old);
     }
     echo '修正しました。<br/>';
