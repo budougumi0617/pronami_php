@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 require_once $_ENV['APACHE_DOCUMENT_ROOT'] . '/common.php';
 
-function validate(string $name, string $price): bool
+function validate(string $name, string $price, array $file): bool
 {
     $valid = true;
 
@@ -20,12 +20,26 @@ function validate(string $name, string $price): bool
         echo "商品名:${price}円<br/>";
     }
 
+    if ($file['size'] > 0) {
+        if ($file['size'] > 100000) {
+            $valid = false;
+            echo '画像が大きすぎます';
+        } else {
+            // これで型が調べられる。
+            // echo gettype($file);
+            move_uploaded_file($file['tmp_name'], '../gazou/' . h($file['name']));
+            echo '<img src="../gazou/' . h($file['name']) . '"><br/>';
+        }
+
+    }
     return $valid;
 }
 
 $id = h($_POST['id']);
 $pro_name = h($_POST['name']);
 $pro_price = h($_POST['price']);
+$pro_file_old = h($_POST['gazou_name_old']);
+$pro_file = $_FILES['gazou_name'];
 ?>
 <!doctype html>
 <html lang="ja">
@@ -34,13 +48,15 @@ $pro_price = h($_POST['price']);
     <title>ろくまる農園</title>
 </head>
 <body>
-<? if (validate($pro_name, $pro_price)): ?>
+<? if (validate($pro_name, $pro_price, $pro_file)): ?>
     <? echo '上記のように変更します。' ?><br/>
     <form action="pro_edit_done.php" method="post">
         <? // HTMLタグ内で変数を展開する ?>
         <input type="hidden" name="id" value="<? echo $id ?>">
         <input type="hidden" name="name" value="<? echo $pro_name ?>">
         <input type="hidden" name="price" value="<? echo $pro_price ?>">
+        <input type="hidden" name="gazou_name_old" value="<? echo $pro_file_old ?>">
+        <input type="hidden" name="gazou_name" value="<? echo h($pro_file['name']) ?>">
         <br/>
         <input type="button" onclick="history.back()" value="戻る">
         <input type="submit" value="OK">
