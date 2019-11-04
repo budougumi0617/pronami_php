@@ -18,6 +18,8 @@ Manged by phinx
 - http://docs.phinx.org/en/latest/index.html
 
 ```bash
+# Create
+$ vendor/bin/phinx create CreateProductTable
 # Migrate
 $ vendor/bin/phinx migrate
 # Rollback
