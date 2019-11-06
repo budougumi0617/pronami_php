@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 require_once $_ENV['APACHE_DOCUMENT_ROOT'] . '/common.php';
 
+sessionCheck();
+
 function validate(string $name, string $price, array $file): bool
 {
     $valid = true;

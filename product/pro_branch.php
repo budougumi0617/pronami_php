@@ -1,4 +1,7 @@
 <?php
+require_once $_ENV['APACHE_DOCUMENT_ROOT'] . '/common.php';
+
+sessionCheckForBranch();
 
 $id = $_POST['id'];
 

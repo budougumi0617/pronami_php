@@ -1,3 +1,8 @@
+<?php
+require_once $_ENV['APACHE_DOCUMENT_ROOT'] . '/common.php';
+
+sessionCheck();
+?>
 <!doctype html>
 <html lang="ja">
 <head>
@@ -6,7 +11,6 @@
 </head>
 <body>
 <?php
-require_once $_ENV['APACHE_DOCUMENT_ROOT'] . '/common.php';
 
 $pro_name = h($_POST['name']);
 $pro_price = h($_POST['price']);
