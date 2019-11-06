@@ -1,3 +1,8 @@
+<?php
+require_once $_ENV['APACHE_DOCUMENT_ROOT'] . '/common.php';
+
+sessionCheck();
+?>
 <!doctype html>
 <html lang="ja">
 <head>

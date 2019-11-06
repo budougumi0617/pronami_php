@@ -1,6 +1,8 @@
 <?php
 require_once $_ENV['APACHE_DOCUMENT_ROOT'] . '/common.php';
 
+sessionCheck();
+
 $id = $_GET['id'];
 
 $sql = 'SELECT name FROM mst_staff WHERE id=?';

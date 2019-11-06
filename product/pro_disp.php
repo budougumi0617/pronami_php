@@ -1,6 +1,8 @@
 <?php
 require_once $_ENV['APACHE_DOCUMENT_ROOT'] . '/common.php';
 
+sessionCheck();
+
 $id = $_GET['id'];
 
 $sql = 'SELECT name, price, gazou FROM mst_product WHERE id=?';
