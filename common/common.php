@@ -1,4 +1,13 @@
 <?php
+declare(strict_types=1);
+
+function sanitize(array $before): array{
+    $after = array();
+    foreach ($before as $k => $v){
+        $after[$k] = htmlspecialchars($v, ENT_QUOTES, 'UTF-8');
+    }
+    return $after;
+}
 
 function convertToGengo(int $seireki): string
 {
