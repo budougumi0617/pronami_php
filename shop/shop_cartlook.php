@@ -48,7 +48,8 @@ try {
     <? for ($i = 0; $i < $max; $i++): ?>
         <? echo $name[$i] . $gazou[$i] . $price[$i] . '円 '; ?>
         <input type="text" name="kazu<? echo $i; ?>" value="<? echo $num[$i]; ?>">
-        <? echo $price[$i] * $num[$i] . '円' ?><br/>
+        <? echo $price[$i] * $num[$i] . '円' ?>
+        <input type="checkbox" name="sakujo<? echo $i; ?>"><br/>
     <? endfor; ?>
     <input type="hidden" name="max" value="<? echo $max ?>">
     <input type="submit" value="数量変更"><br/>
