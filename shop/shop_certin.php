@@ -14,6 +14,11 @@ try {
         $cart = $_SESSION['cart'];
         $num = $_SESSION['num'];
     }
+    if (in_array($id, $cart)){
+        echo 'その商品はすでにカートに入っています。<br/>';
+        echo '<a href="shop_list.php">商品一覧へ戻る</a>';
+        exit();
+    }
     // array_pushでもよい。
     $cart[] = $id;
     $num[] = 1;

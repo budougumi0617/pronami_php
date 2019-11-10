@@ -3,12 +3,19 @@ require_once $_ENV['APACHE_DOCUMENT_ROOT'] . '/common.php';
 
 sessionCheckForMember();
 
-$cart = $_SESSION['cart'];
-$num = $_SESSION['num'];
-if (!isset($cart)) {
-    $cart = [];
+$max = 0;
+
+if (isset($_SESSION['cart'])) {
+    $cart = $_SESSION['cart'];
+    $num = $_SESSION['num'];
+    $max = count($cart);
 }
-$max = count($cart);
+
+if ($max === 0) {
+    echo 'カートに商品が入っていません。<br/>';
+    echo '<a href="shop_list.php">商品一覧へ戻る</a>';
+    exit();
+}
 
 try {
     $dbh = getDBHandler();
@@ -43,17 +50,31 @@ try {
 </head>
 <body>
 <form action="kazu_change.php" method="post">
+    <table border="1">
+        <tr>
+            <td>商品</td>
+            <td>商品画像</td>
+            <td>価格</td>
+            <td>数量</td>
+            <td>小計</td>
+            <td>削除</td>
+        </tr>
 
-
-    <? for ($i = 0; $i < $max; $i++): ?>
-        <? echo $name[$i] . $gazou[$i] . $price[$i] . '円 '; ?>
-        <input type="text" name="kazu<? echo $i; ?>" value="<? echo $num[$i]; ?>">
-        <? echo $price[$i] * $num[$i] . '円' ?>
-        <input type="checkbox" name="sakujo<? echo $i; ?>"><br/>
-    <? endfor; ?>
-    <input type="hidden" name="max" value="<? echo $max ?>">
+        <? for ($i = 0; $i < $max; $i++): ?>
+            <tr>
+                <td><?= $name[$i] ?></td>
+                <td><?= $gazou[$i] ?></td>
+                <td><?= $price[$i] ?>円</td>
+                <td><input type="text" name="kazu<?= $i ?>" value="<?= $num[$i] ?>"></td>
+                <td><?= $price[$i] * $num[$i] . '円' ?></td>
+                <td><input type="checkbox" name="sakujo<?= $i ?>"></td>
+            </tr>
+        <? endfor; ?>
+    </table>
+    <input type="hidden" name="max" value="<?= $max ?>">
     <input type="submit" value="数量変更"><br/>
-    <input type="button" onclick="history.back()" value="戻る">
+    <!-- <input type="button" onclick="history.back()" value="戻る"> -->
 </form>
+<a href="shop_list.php">商品一覧へ戻る</a>
 </body>
 </html>
