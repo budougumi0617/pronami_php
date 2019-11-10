@@ -37,5 +37,7 @@ try {
     exit();
 }
 ?>
+<br/>
+<a href="shop_cartlook.php">カートを見る</a><br/>
 </body>
 </html>
