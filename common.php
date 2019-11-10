@@ -19,6 +19,20 @@ function getDBHandler(): PDO
     return $dbh;
 }
 
+function sessionCheckForMember()
+{
+    session_start();
+    // 合言葉を変える
+    session_regenerate_id();
+    if (!isset($_SESSION['member_login'])) {
+        echo 'ようこそゲスト様  ';
+        echo '<a href="../member_login.html">会員ログイン</a><br/>';
+        echo '<br/>';
+    } else {
+        echo 'ようこそ' .$_SESSION['staff_name'] . '様 <a href="member_logout.php">ログアウト</a><br/></br>';
+    }
+}
+
 function sessionCheck()
 {
     session_start();
