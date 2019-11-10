@@ -4,6 +4,7 @@ require_once $_ENV['APACHE_DOCUMENT_ROOT'] . '/common.php';
 sessionCheckForMember();
 
 $cart = $_SESSION['cart'];
+$num = $_SESSION['num'];
 if (!isset($cart)) {
     $cart = [];
 }
@@ -41,8 +42,17 @@ try {
     <title>ろくまる農園</title>
 </head>
 <body>
-<? for ($i = 0; $i < $max; $i++): ?>
-    <? echo $name[$i] . $gazou[$i] . $price[$i] . '円<br/>'; ?>
-<? endfor; ?>
+<form action="kazu_change.php" method="post">
+
+
+    <? for ($i = 0; $i < $max; $i++): ?>
+        <? echo $name[$i] . $gazou[$i] . $price[$i] . '円 '; ?>
+        <input type="text" name="kazu<? echo $i; ?>" value="<? echo $num[$i]; ?>">
+        <? echo $price[$i] * $num[$i] . '円' ?><br/>
+    <? endfor; ?>
+    <input type="hidden" name="max" value="<? echo $max ?>">
+    <input type="submit" value="数量変更"><br/>
+    <input type="button" onclick="history.back()" value="戻る">
+</form>
 </body>
 </html>

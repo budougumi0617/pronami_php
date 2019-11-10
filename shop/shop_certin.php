@@ -12,10 +12,13 @@ try {
 
     if (isset($_SESSION['cart'])) {
         $cart = $_SESSION['cart'];
+        $num = $_SESSION['num'];
     }
     // array_pushでもよい。
     $cart[] = $id;
+    $num[] = 1;
     $_SESSION['cart'] = $cart;
+    $_SESSION['num'] = $num;
 } catch (Exception $e) {
     echo 'ただいま障害により大変ご迷惑をおかけしております。';
     exit();
