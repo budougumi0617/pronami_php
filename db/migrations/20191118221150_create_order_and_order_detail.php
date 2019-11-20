@@ -40,7 +40,7 @@ class CreateOrderAndOrderDetail extends AbstractMigration
             ->addColumn('postal1', 'string', ['limit' => 3])
             ->addColumn('postal2', 'string', ['limit' => 4])
             ->addColumn('address', 'string', ['limit' => 50])
-            ->addColumn('tell', 'string', ['limit' => 3])
+            ->addColumn('tell', 'string', ['limit' => 13])
             ->create();
 
         $detail = $this->table('dat_sales_product', ['id' => false, 'primary_key' => 'id']);

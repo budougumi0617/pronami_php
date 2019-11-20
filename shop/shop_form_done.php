@@ -35,19 +35,51 @@ try {
 
         $pname = $rec['name'];
         $price = $rec['price'];
+        $kakaku[] = $price;
         $suryo = $num[$i];
         $sum = $price * $suryo;
 
         $orders .= $pname . ' ' . $price . '円 x' . $suryo . '個 = ' . $sum . "\n";
     }
 
+    $sql = 'INSERT INTO dat_sales (code_member, name, email, postal1, postal2, address, tell) VALUES (?,?,?,?,?,?,?)';
+    $stmt = $dbh->prepare($sql);
+    $data = [];
+    $data[0] = 0; // 会員コードは暫定で0
+    $data[] = $name;
+    $data[] = $email;
+    $data[] = $postal1;
+    $data[] = $postal2;
+    $data[] = $address;
+    $data[] = $tel;
+    $stmt->execute($data);
+
+    // IDを取得
+    $sql = 'SELECT LAST_INSERT_ID()';
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute();
+    $rec = $stmt->fetch(PDO::FETCH_ASSOC);
+    $lastId = $rec['LAST_INSERT_ID()'];
+
+    for ($i = 0; $i < $max; $i++) {
+        $sql = 'INSERT INTO dat_sales_product (sales_id, product_id, price, quantity) VALUES (?,?,?,?)';
+        $stmt= $dbh->prepare($sql);
+        $data = [];
+        $data[]=$lastId;
+        $data[]=$cart[$i];
+        $data[]=$kakaku[$i];
+        $data[]=$num[$i];
+        $stmt->execute($data);
+    }
+
     $dbh = null;
 } catch (Exception $e) {
     echo 'ただいま障害により大変ご迷惑をおかけしております。';
+    echo $e;
     exit();
 }
-$rec = $stmt->fetch(PDO::FETCH_ASSOC);
 
+// ヒアドキュメントを使ってみる
 $format = <<<EOT
 {$name}様
 
