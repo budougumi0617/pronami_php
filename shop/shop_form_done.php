@@ -23,6 +23,12 @@ try {
 
 
     $dbh = getDBHandler();
+
+    // DBにLOCKをかける
+    $sql = 'LOCK TABLES dat_sales WRITE, dat_sales_product WRITE, mst_product READ';
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute();
+
     $sql = 'SELECT name, price FROM mst_product WHERE id=?';
 
     $orders = '';
@@ -72,10 +78,15 @@ try {
         $stmt->execute($data);
     }
 
+    // DBをアンロック
+    $sql = 'UNLOCK TABLES';
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute();
+
     $dbh = null;
 } catch (Exception $e) {
     echo 'ただいま障害により大変ご迷惑をおかけしております。';
-    echo $e;
+    var_dump($e);
     exit();
 }
 
@@ -125,6 +136,8 @@ mb_send_mail('info@rokumarunouen.co.jp', $title, $honbun, $header);
     echo $tel . '<br/>';
     // echo nl2br($format);
     ?>
+    <br/>
+    <a href="shop_list.php">商品画面へ</a>
     </body>
     </html>
 <?php
