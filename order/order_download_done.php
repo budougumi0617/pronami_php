@@ -57,21 +57,21 @@ try {
 
     $dbh = null; // GCを促してDBへのコネクションを切断している。
 
-    $csv= "注文コード,注文日時,会員番号,お名前,メール,郵便番号,住所,TEL,商品コード,商品名,価格,数量\n";
-    while (true){
+    $csv = "注文コード,注文日時,会員番号,お名前,メール,郵便番号,住所,TEL,商品コード,商品名,価格,数量\n";
+    while (true) {
         $rec = $stmt->fetch(PDO::FETCH_ASSOC);
-        if (!$rec){
+        if (!$rec) {
             break;
         }
-        $line = $rec['id'].','.$rec['date'].','.$rec['code_member'].','.$rec['ds_name'].','.$rec['email'].','.$rec['postal1'].'-'.$rec['postal2'];
-        $line.=$rec['address'].','.$rec['tell'].','.$rec['product_id'].','.$rec['mp_name'].','.$rec['price'].','.$rec['quantity']."\n";
-        $csv.=$line;
+        $line = $rec['id'] . ',' . $rec['date'] . ',' . $rec['code_member'] . ',' . $rec['ds_name'] . ',' . $rec['email'] . ',' . $rec['postal1'] . '-' . $rec['postal2'];
+        $line .= $rec['address'] . ',' . $rec['tell'] . ',' . $rec['product_id'] . ',' . $rec['mp_name'] . ',' . $rec['price'] . ',' . $rec['quantity'] . "\n";
+        $csv .= $line;
     }
 
     // echo nl2br($csv);
-    $file = fopen('./order.csv','w');
-    $csv = mb_convert_encoding($csv,'SJIS','UTF-8');
-    fputs($file,$csv);
+    $file = fopen('./order.csv', 'w');
+    $csv = mb_convert_encoding($csv, 'SJIS', 'UTF-8');
+    fputs($file, $csv);
     fclose($file);
 } catch (Exception $e) {
     var_dump($e);
