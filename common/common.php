@@ -57,7 +57,7 @@ function pulldown_month()
 
 function pulldown_day()
 {
-    echo '<select name="month">';
+    echo '<select name="day">';
     echo '<option value="01">01</option>';
     echo '<option value="02">02</option>';
     echo '<option value="03">03</option>';
